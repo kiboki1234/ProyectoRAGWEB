@@ -165,6 +165,15 @@ docker buildx build --platform linux/amd64,linux/arm64 -t docker.io/<usuario>/pr
     ["#faq", "FAQ"],
   ];
   const [menuOpen, setMenuOpen] = useState(false);
+  // Genera el SVG como string (puedes adaptar el contenido)
+const openAsset = (path) => {
+  const url = `${import.meta.env.BASE_URL}${path.replace(/^\//,'')}`; // robusto para Vite
+  const win = window.open(url, '_blank', 'noopener');
+  if (!win) alert('Habilita ventanas emergentes para ver el diagrama.');
+};
+
+
+
 
   return (
     <main className="app">
@@ -178,6 +187,23 @@ docker buildx build --platform linux/amd64,linux/arm64 -t docker.io/<usuario>/pr
               <div className="brand-title">ProyectoRAG</div>
             </div>
           </div>
+
+<button
+  type="button"
+  onClick={() => openAsset('/diagramas/diagrmaProcesos.svg')}
+  className="btn-link"
+>
+  Diagrama de proceso
+</button>
+
+<button
+  type="button"
+  onClick={() => openAsset('/diagramas/diagrama-flujo.svg')}
+  className="btn-link"
+>
+  Diagrama de flujo
+</button>
+
 
           {/* Botón hamburguesa (móvil) */}
           <button
