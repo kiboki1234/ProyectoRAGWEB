@@ -1,0 +1,314 @@
+/* =========================
+   index.css — responsive, mobile-first
+   ========================= */
+
+/* Reset + tema */
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; }
+:root{
+  /* colores */
+  --bg: #0b0f14;
+  --panel: #111827;
+  --panel-2: #0f172a;
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+  --border: #374151;
+  --chip: #1f2937;
+  --accent: #9ca3af;
+
+  /* layout */
+  --radius: 16px;
+  --shadow: 0 6px 24px rgba(0,0,0,.35);
+  --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  --content-w: 1120px;
+  --header-h: 64px;
+
+  /* breakpoints */
+  --bp-sm: 480px;
+  --bp-md: 768px;
+  --bp-lg: 1024px;
+  --bp-xl: 1280px;
+}
+
+body{
+  font-family: var(--font);
+  background:
+    radial-gradient(60vw 60vw at 120% -10%, #1f2937 0%, transparent 60%),
+    radial-gradient(40vw 40vw at -20% 10%, #111827 0%, transparent 60%),
+    var(--bg);
+  color: var(--text);
+  overflow-x: hidden; /* evita scroll horizontal residual */
+}
+
+img, svg, video, canvas, iframe { max-width: 100%; height: auto; display: block; }
+pre { overflow: auto; }
+code { word-break: break-word; }
+
+/* Layout general */
+.app{}
+
+.header{
+  position: sticky; top:0; z-index:40;
+  backdrop-filter: blur(6px);
+  background: color-mix(in srgb, var(--panel-2) 80%, transparent);
+  border-bottom: 1px solid var(--border);
+}
+.header-inner{
+  max-width: var(--content-w); margin: 0 auto; padding: 12px 16px;
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+}
+.brand{ display:flex; align-items:center; gap:12px; }
+.brand-mark{
+  width:32px; height:32px; border-radius:10px; background: var(--chip);
+  border: 1px solid var(--border); display:grid; place-items:center; font-weight:700;
+}
+.brand-sub{ font-size:12px; letter-spacing: .14em; color: var(--muted); text-transform: uppercase; }
+.brand-title{ margin-top:-2px; font-weight:600; color: var(--text); }
+
+/* Navegación/TOC */
+.nav{ display:flex; gap:6px; }
+.navlink{
+  display:block; padding:8px 12px; border-radius:10px;
+  color: #d1d5db; text-decoration:none;
+}
+.navlink:hover{ color: #fff; background: #1f2937aa; }
+
+/* Contenedor principal */
+.container{
+  max-width: var(--content-w); margin:0 auto; padding: 24px 16px;
+  display:grid; gap:24px;
+  grid-template-columns: 1fr;   /* móvil: 1 columna */
+}
+@media (min-width: 1024px){
+  .container{ grid-template-columns: 260px 1fr; } /* desktop: sidebar + main */
+}
+
+.hide-sm{ display:none; }
+@media (min-width: 1024px){ .hide-sm{ display:block; } }
+
+.toc{
+  position: sticky; top: calc(var(--header-h) + 32px);
+  padding:12px; border:1px solid var(--border); border-radius:20px;
+  background: color-mix(in srgb, var(--panel) 60%, transparent);
+}
+.toc-title{ padding: 0 8px 6px; font-size:12px; letter-spacing:.12em; color: var(--muted); text-transform:uppercase; }
+
+.main{ display:flex; flex-direction:column; gap:24px; }
+
+/* Hero */
+.hero{
+  border:1px solid var(--border); border-radius:24px; padding:24px;
+  background: linear-gradient(135deg, var(--panel) 0%, var(--panel-2) 100%);
+  box-shadow: var(--shadow);
+}
+.hero-row{ display:flex; flex-direction:column; gap:16px; }
+@media (min-width: 768px){
+  .hero-row{ flex-direction:row; align-items:flex-end; justify-content:space-between; }
+}
+.h1{ font-size: clamp(22px, 3.2vw, 36px); margin:0; letter-spacing:-0.01em; }
+.lead{ margin: 8px 0 0; max-width: 70ch; color: #d1d5db; }
+.chips{ display:flex; flex-wrap:wrap; gap:8px; }
+.chip{
+  display:inline-flex; align-items:center; gap:6px; font-size:12px;
+  padding:.25rem .6rem; border-radius:999px; border:1px solid var(--border);
+  background: color-mix(in srgb, var(--chip) 60%, transparent); color: #e5e7eb;
+}
+
+/* Sections */
+.section{
+  scroll-margin-top: calc(var(--header-h) + 16px);
+}
+.section-summary{ list-style:none; }
+.section-summary::-webkit-details-marker{ display:none; }
+.section-header{
+  display:flex; align-items:flex-start; justify-content:space-between; gap:16px;
+  padding:18px; border:1px solid var(--border); border-radius:20px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--panel) 80%, transparent), color-mix(in srgb, var(--panel-2) 60%, transparent));
+  transition: border-color .2s ease;
+}
+.section-header:hover{ border-color:#6b7280; }
+.chevron{ color: var(--accent); transform: rotate(0deg); transition: transform .2s ease; margin-top: 4px; }
+details[open] .chevron{ transform: rotate(180deg); }
+.section-body{ padding: 10px 18px 18px; }
+
+/* tipografía utilitaria */
+.h2{ margin:0; font-size: clamp(18px, 2.2vw, 22px); font-weight:600; color:#fafafa; }
+.text{ color:#e5e7eb; font-weight:500; }
+.strong{ font-weight:600; }
+.muted{ color: var(--muted); }
+.small{ font-size: 13px; }
+.xsmall{ font-size: 12px; }
+
+/* Cards */
+.card{
+  border:1px solid var(--border); border-radius:16px; padding:16px;
+  background: color-mix(in srgb, var(--panel) 70%, transparent);
+  /* claves para responsividad en grid */
+  max-width: 100%; min-width: 0; overflow: hidden;
+}
+
+/* Grids (mobile-first) */
+.grid-2, .grid-3{ display:grid; gap:12px; }
+.grid-2{ grid-template-columns: 1fr; }
+.grid-3{ grid-template-columns: 1fr; }
+
+@media (min-width: 768px){
+  .grid-2{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid-3{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 1024px){
+  .grid-3{ grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* MUY IMPORTANTE: que los hijos de los grids puedan encogerse */
+.grid-2 > *, .grid-3 > *, .stack > *, .main > * { min-width: 0; }
+
+/* Stack */
+.stack{ display:grid; gap:12px; }
+
+/* Lists */
+.list{ margin: 8px 0 0; padding-left: 18px; color:#d1d5db; }
+.list.num{ list-style: decimal; }
+.list li{ margin: 4px 0; }
+
+/* Code blocks */
+.codeblock{
+  border:1px solid var(--border); border-radius:14px; overflow:hidden; background: #0b0f14;
+  max-width: 100%; min-width: 0;
+}
+.codeblock-topbar{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:6px 10px; border-bottom:1px solid var(--border); background: #111827cc; font-size:12px; color:#d1d5db;
+}
+.upper{ text-transform: uppercase; letter-spacing:.12em; }
+.btn-ghost{
+  border:1px solid var(--border); background: transparent; color:#e5e7eb;
+  padding:2px 8px; border-radius:8px; cursor:pointer;
+}
+.btn-ghost:hover{ background:#1f2937; }
+.codeblock-pre{
+  margin:0; padding:14px; color:#e5e7eb; font-size: 14px; line-height:1.55;
+  /* claves para que no “ensanche” en móvil */
+  white-space: pre-wrap;          /* permite salto de línea */
+  word-break: break-word;         /* corta palabras largas */
+  overflow-x: auto;               /* scroll si aún hay línea muy larga */
+}
+
+/* Footer */
+.footer{
+  margin-top: 24px; padding-top: 16px; border-top:1px solid var(--border);
+  display:flex; align-items:center; justify-content:space-between; gap:12px; color: var(--muted); font-size:14px;
+  flex-wrap: wrap;  /* que no se rompa en pantallas chicas */
+}
+.link{ color: #d1d5db; text-decoration:none; }
+.link:hover{ color: #fff; }
+
+/* Back to top */
+.btn-top{
+  position:fixed; right:24px; bottom:24px; z-index:50;
+  width:44px; height:44px; border-radius:999px; border:1px solid var(--border);
+  background:#1f2937e6; color:#e5e7eb; cursor:pointer; box-shadow: var(--shadow);
+}
+.btn-top:hover{ background:#374151; }
+
+/* Acciones del header (botonera de enlaces) */
+.header-actions{
+  display:flex; align-items:center; gap:6px; flex-wrap:wrap;
+}
+
+.btn-link{
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:12px; line-height:1; text-decoration:none;
+  color:#e5e7eb;
+  padding:6px 10px; border-radius:8px;
+  border:1px solid var(--border);
+  background: color-mix(in srgb, var(--panel) 50%, transparent);
+}
+.btn-link:hover{ background:#1f2937aa; color:#fff; }
+
+.divider{
+  display:inline-block; width:1px; height:20px; background: var(--border);
+  margin: 0 4px;
+}
+
+/* ---------- RESPONSIVE HEADER (hamburguesa + drawer) ---------- */
+
+/* Botón hamburguesa: oculto en desktop, visible < 1024px */
+.hamburger{
+  display: none;
+  align-items:center; justify-content:center;
+  width:40px; height:36px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background: color-mix(in srgb, var(--panel) 50%, transparent);
+  cursor:pointer;
+}
+.hamburger .bar{
+  display:block;
+  width:20px; height:2px;
+  background:#e5e7eb;
+  margin:3px 0;
+  transition: transform .2s ease, opacity .2s ease;
+}
+.hamburger[aria-expanded="true"] .bar:nth-child(1){ transform: translateY(5px) rotate(45deg); }
+.hamburger[aria-expanded="true"] .bar:nth-child(2){ opacity: 0; }
+.hamburger[aria-expanded="true"] .bar:nth-child(3){ transform: translateY(-5px) rotate(-45deg); }
+
+@media (max-width: 1023px){
+  .hamburger{ display:inline-flex; }
+  .header-actions{ display:none; }   /* ocultamos enlaces cuando hay menú móvil */
+}
+
+/* Drawer móvil */
+.mobile-menu{
+  position: fixed; inset: 0; z-index: 45;
+  background: rgba(2,6,23,.55);
+  backdrop-filter: blur(6px);
+  opacity: 0; pointer-events: none;
+  transition: opacity .2s ease;
+}
+.mobile-menu.is-open{ opacity: 1; pointer-events: auto; }
+.mobile-menu-panel{
+  position: absolute;
+  top: var(--header-h); left: 16px; right: 16px;
+  border:1px solid var(--border); border-radius:16px;
+  background: color-mix(in srgb, var(--panel) 70%, transparent);
+  padding: 12px; box-shadow: var(--shadow);
+  max-height: calc(100dvh - (var(--header-h) + 32px)); overflow:auto;
+}
+
+/* Enlaces dentro del drawer */
+.mobile-menu .navlink{
+  display:block; padding:10px 12px; border-radius:10px;
+  color:#d1d5db; text-decoration:none;
+}
+.mobile-menu .navlink:hover{ color:#fff; background:#1f2937aa; }
+.mobile-menu .ext{
+  display:flex; flex-wrap:wrap; gap:6px; margin-top:8px;
+}
+
+@media (max-width: 480px){
+  .mobile-menu-panel{ top: 56px; }
+}
+
+/* ---------- Ajustes específicos para ApiDocs ---------- */
+
+/* Que la sección de docs aproveche todo el ancho de la columna main */
+.main .section { width: 100%; max-width: 100%; }
+
+/* Variante “fit” si la usas en ApiDocs.jsx */
+.section.section--fit { padding-left: 0; padding-right: 0; }
+
+/* Grids internos coherentes */
+.section .grid-2, .section .grid-3 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+@media (min-width: 900px) {
+  .section .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .section .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* Evita que cualquier hijo “ensanche” el layout */
+.section .grid-2 > *, .section .grid-3 > * { min-width: 0; max-width: 100%; }
